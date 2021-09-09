@@ -48,7 +48,7 @@ int division(int a , int b)
 int main (int argc, char **argv )
 {
 
-	int result;
+	double result;
 
 	printf("Welcome to the Calculator\n");
 	if ( argc < 3 )
@@ -64,36 +64,36 @@ int main (int argc, char **argv )
 
 		case '!' :
                         result = factorielle(atoi(argv[1]));
-                        printf("votre resultat :  %d\n",result);
+                        printf("ur result :  %.2lf\n",result);
                         break;
 
 		case '^' :
                         result = pow(atoi(argv[1]),atoi(argv[3]));
-                        printf("votre resultat :  %d\n",result);
+                        printf("ur result :  %.2lf\n",result);
                         break;
 
 		case '*' :
 			result = atoi(argv[1])*atoi(argv[3]);
-			printf("votre resultat :  %d\n",result);
+			printf("ur result :  %.2lf\n",result);
 			break;
 
 		case 'x' :
 			result = atoi(argv[1])*atoi(argv[3]);
-			printf("votre resultat :  %d\n",result);
+			printf("ur result :  %.2lf\n",result);
 			break;
 		
 		case '+' :
                         result = atoi(argv[1])+atoi(argv[3]);
-                        printf("votre resultat :  %d\n",result);
+                        printf("ur result :  %.2lf\n",result);
                         break;
 	
 		case '-' :	
 			result = atoi(argv[1])-atoi(argv[3]);
-			printf("votre resultat :  %d\n",result);
+			printf("ur result :  %.2lf\n",result);
 			break;	
 		case '/' :	
 			result = atoi(argv[1])/atoi(argv[3]);
-			printf("votre resultat :  %d\n",result);
+			printf("ur result :  %.2lf\n",result);
 			break;
 
 		case '%' :
@@ -102,7 +102,7 @@ int main (int argc, char **argv )
 
 		case 'g' :
 			result = pgcd(atoi(argv[1]),atoi(argv[3]));
-                        printf("votre resultat :  %d\n",result);
+                        printf("votre resultat :  %.2lf\n",result);
                         break;
 
 		default :
