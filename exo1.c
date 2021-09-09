@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 unsigned long long factorielle(unsigned long long a)
 {
@@ -11,17 +12,26 @@ unsigned long long factorielle(unsigned long long a)
     return r;
 }
 
+long long pgcd(long long a, long long b)
+{
+    if (b == 0)
+        return a;
+
+    long long r = a % b;
+
+    while (r != 0)
+    {
+            a = b;
+            b = r;
+            r = a % b;
+    }
+
+    return b;
+}
+
 int division(int a , int b)
 {
-
-/*
-	if ( b = 0 )
-	{
 	
-		printf("impossible to divise by 0");
-		exit(1);
-	}
-*/	
 	int q = 0;
 	int r = a;
 	while ( r >= b )
@@ -47,7 +57,7 @@ int main (int argc, char **argv )
 		printf("Usage : ./exo1 a operator b\n");
 		exit(1);
 	}
-	printf("%c",argv[2][0]);
+//	printf("%c",argv[2][0]);
 	
 	switch (argv[2][0])
 	{
@@ -57,7 +67,11 @@ int main (int argc, char **argv )
                         printf("votre resultat :  %d\n",result);
                         break;
 
-	
+		case '^' :
+                        result = pow(atoi(argv[1]),atoi(argv[3]));
+                        printf("votre resultat :  %d\n",result);
+                        break;
+
 		case '*' :
 			result = atoi(argv[1])*atoi(argv[3]);
 			printf("votre resultat :  %d\n",result);
@@ -78,12 +92,18 @@ int main (int argc, char **argv )
 			printf("votre resultat :  %d\n",result);
 			break;	
 		case '/' :	
-			result = division(atoi(argv[1]),atoi(argv[3]));
+			result = atoi(argv[1])/atoi(argv[3]);
+			printf("votre resultat :  %d\n",result);
 			break;
 
 		case '%' :
 			result = division(atoi(argv[1]),atoi(argv[3]));
 			break;
+
+		case 'g' :
+			result = pgcd(atoi(argv[1]),atoi(argv[3]));
+                        printf("votre resultat :  %d\n",result);
+                        break;
 
 		default :
 			printf("Error! Operator is not correct\n");	
