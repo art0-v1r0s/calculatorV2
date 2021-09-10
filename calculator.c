@@ -46,34 +46,36 @@ int division(int a , int b)
 	return 0 ;
 }
 
-int main ( void )
+int main ( int argc,char ** argv )
+
 {
 
-	
+	(void)argc;	
 	double result;
 
-	char calcul[256];
+	char * calcul = malloc( strlen ( argv[1] ) + 1 );
+	if ( calcul != NULL )
+	{
+	
+		strcpy( calcul , argv[1] );
+	}else
+	{
+	
+		return 1;
+	}
 	double nb1;
 	double nb2;
 	char op;
 	
 	printf("Welcome to the Calculator\n");
 
-	printf("enter ur calcul :\n");
-
-	fgets(calcul, 256, stdin);
-
-	if ( calcul[ strlen( calcul-1 ) ] == '\n' ) 
-	{
-		calcul[strlen(calcul-1)]='\0';
-	}
+	//printf("argv1 in calcul %s\n",calcul);
 		
-	printf("%s",calcul);
-	sscanf(calcul,"%lf %c %lf",&nb1,&op,&nb2);
-	printf("%lf\n",nb1);
-	printf("%c\n",op);
-	printf("%lf\n",nb2);
+	printf("ur calcul %s\n",calcul);
 
+	sscanf(calcul,"%lf %c %lf",&nb1,&op,&nb2);
+	
+	free( calcul );
 	switch (op)
 	{
 
@@ -129,7 +131,6 @@ int main ( void )
 	printf("Error! Operator is not correct\n");	
 	
 	}
-
 
 		return 0;
 	}
