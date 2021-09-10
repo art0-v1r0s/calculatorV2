@@ -2,7 +2,7 @@ CC = gcc									# Nom du compilateur
 CFLAGS = -std=c99 -Wall -Wextra -Werror -Wstrict-prototypes -fanalyzer		# Les flags
 RM = rm -f 									# Commande pour supprimer des fichiers
 NAME = calculator									# Nom de l'exécutable
-SRC = exo1.c	 								# Les fichiers source. Soir *.c, soit on liste les fichiers
+SRC = calculator.c	 								# Les fichiers source. Soir *.c, soit on liste les fichiers
 EXEC = ./
 4POW = -lm
 
