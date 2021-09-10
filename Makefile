@@ -6,7 +6,7 @@ SRC = exo1.c	 								# Les fichiers source. Soir *.c, soit on liste les fichier
 EXEC = ./
 4POW = -lm
 
-all: compilation execute 
+all: compilation 
 
 execute:
 	$(EXEC)$(NAME)

@@ -68,36 +68,36 @@ int main (int argc, char **argv )
                         break;
 
 		case 'v' :
-                        result = sqrt(atoi(argv[1]));
+                        result = sqrt(atof(argv[1]));
                         printf("ur result :  %.2lf\n",result);
                         break;
 
 		case '^' :
-                        result = pow(atoi(argv[1]),atoi(argv[3]));
+                        result = pow(atof(argv[1]),atof(argv[3]));
                         printf("ur result :  %.2lf\n",result);
                         break;
 
 		case '*' :
-			result = atoi(argv[1])*atoi(argv[3]);
+			result = atof(argv[1])*atof(argv[3]);
 			printf("ur result :  %.2lf\n",result);
 			break;
 
 		case 'x' :
-			result = atoi(argv[1])*atoi(argv[3]);
+			result = atof(argv[1])*atof(argv[3]);
 			printf("ur result :  %.2lf\n",result);
 			break;
 		
 		case '+' :
-                        result = atoi(argv[1])+atoi(argv[3]);
+                        result = atof(argv[1])+atof(argv[3]);
                         printf("ur result :  %.2lf\n",result);
                         break;
 	
 		case '-' :	
-			result = atoi(argv[1])-atoi(argv[3]);
+			result = atof(argv[1])-atof(argv[3]);
 			printf("ur result :  %.2lf\n",result);
 			break;	
 		case '/' :	
-			result = atoi(argv[1])/atoi(argv[3]);
+			result = atof(argv[1])/atof(argv[3]);
 			printf("ur result :  %.2lf\n",result);
 			break;
 
@@ -106,7 +106,7 @@ int main (int argc, char **argv )
 			break;
 
 		case 'g' :
-			result = pgcd(atoi(argv[1]),atoi(argv[3]));
+			result = pgcd(atof(argv[1]),atof(argv[3]));
                         printf("votre resultat :  %.2lf\n",result);
                         break;
 
