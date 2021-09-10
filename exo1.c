@@ -67,6 +67,11 @@ int main (int argc, char **argv )
                         printf("ur result :  %.2lf\n",result);
                         break;
 
+		case 'v' :
+                        result = sqrt(atoi(argv[1]));
+                        printf("ur result :  %.2lf\n",result);
+                        break;
+
 		case '^' :
                         result = pow(atoi(argv[1]),atoi(argv[3]));
                         printf("ur result :  %.2lf\n",result);
