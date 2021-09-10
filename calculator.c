@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <math.h>
 
 unsigned long long factorielle(unsigned long long a)
@@ -45,85 +46,90 @@ int division(int a , int b)
 	return 0 ;
 }
 
-int main (int argc, char **argv )
+int main ( void )
 {
 
 	
 	double result;
-	char stay = 'y';
-	do
+
+	char calcul[256];
+	double nb1;
+	double nb2;
+	char op;
+	
+	printf("Welcome to the Calculator\n");
+
+	printf("enter ur calcul :\n");
+
+	fgets(calcul, 256, stdin);
+
+	if ( calcul[ strlen( calcul-1 ) ] == '\n' ) 
+	{
+		calcul[strlen(calcul-1)]='\0';
+	}
+		
+	printf("%s",calcul);
+	sscanf(calcul,"%lf %c %lf",&nb1,&op,&nb2);
+	printf("%lf\n",nb1);
+	printf("%c\n",op);
+	printf("%lf\n",nb2);
+
+	switch (op)
 	{
 
-		printf("Welcome to the Calculator\n");
-		if ( argc < 3 )
-		{
+	case '!' :
+	result = factorielle( nb1 );
+	printf("ur result :  %.2lf\n",result);
+	break;
 
-		printf("Usage : ./exo1 a operator b\n");
-		exit(1);
-		}
-		//	printf("%c",argv[2][0]);
+	case 'v' :
+	result = sqrt( nb1 );
+	printf("ur result :  %.2lf\n",result);
+	break;
 
-		switch (argv[2][0])
-		{
+	case '^' :
+	result = pow( nb1 , nb2 );
+	printf("ur result :  %.2lf\n",result);
+	break;
 
-		case '!' :
-		result = factorielle(atoi(argv[1]));
-		printf("ur result :  %.2lf\n",result);
-		break;
+	case '*' :
+	result = nb1 * nb2;
+	printf("ur result :  %.2lf\n",result);
+	break;
 
-		case 'v' :
-		result = sqrt(atof(argv[1]));
-		printf("ur result :  %.2lf\n",result);
-		break;
+	case 'x' :
+	result = nb1 * nb2;
+	printf("ur result :  %.2lf\n",result);
+	break;
 
-		case '^' :
-		result = pow(atof(argv[1]),atof(argv[3]));
-		printf("ur result :  %.2lf\n",result);
-		break;
+	case '+' :
+	result = nb1 + nb2;
+	printf("ur result :  %.2lf\n",result);
+	break;
 
-		case '*' :
-		result = atof(argv[1])*atof(argv[3]);
-		printf("ur result :  %.2lf\n",result);
-		break;
+	case '-' :	
+	result = nb1 - nb2;
+	printf("ur result :  %.2lf\n",result);
+	break;	
+	case '/' :	
+	result = nb1 / nb2;
+	printf("ur result :  %.2lf\n",result);
+	break;
 
-		case 'x' :
-		result = atof(argv[1])*atof(argv[3]);
-		printf("ur result :  %.2lf\n",result);
-		break;
+	case '%' :
+	result = division( nb1 , nb2 );
+	break;
 
-		case '+' :
-		result = atof(argv[1])+atof(argv[3]);
-		printf("ur result :  %.2lf\n",result);
-		break;
+	case 'g' :
+	result = pgcd(nb1,nb2);
+	printf("votre resultat :  %.2lf\n",result);
+	break;
 
-		case '-' :	
-		result = atof(argv[1])-atof(argv[3]);
-		printf("ur result :  %.2lf\n",result);
-		break;	
-		case '/' :	
-		result = atof(argv[1])/atof(argv[3]);
-		printf("ur result :  %.2lf\n",result);
-		break;
+	default :
+	printf("Error! Operator is not correct\n");	
+	
+	}
 
-		case '%' :
-		result = division(atoi(argv[1]),atoi(argv[3]));
-		break;
 
-		case 'g' :
-		result = pgcd(atof(argv[1]),atof(argv[3]));
-		printf("votre resultat :  %.2lf\n",result);
-		break;
-
-		default :
-		printf("Error! Operator is not correct\n");	
-		
-		}
-
-	printf("if you would like to continue enter y : ");
-
-	scanf("%c",stay);
-
-	}while( stay == 'y' );	
-
-	return 0;
-}
+		return 0;
+	}
