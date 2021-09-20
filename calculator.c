@@ -127,6 +127,16 @@ int main ( int argc,char ** argv )
 	printf("votre resultat :  %.2lf\n",result);
 	break;
 
+	case 'e' :
+	result = exp(nb1);
+	printf("votre resultat :  %.2lf\n",result);
+	break;
+
+	case 'l' :
+	result = log(nb1);
+	printf("votre resultat :  %.2lf\n",result);
+	break;
+
 	default :
 	printf("Error! Operator is not correct\n");	
 	
