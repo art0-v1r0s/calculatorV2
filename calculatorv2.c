@@ -55,6 +55,8 @@ int main ( int argc,char ** argv )
 
 	char * calcul = argv[1]; // 2+33*5
 
+	char * calcul2 = calloc(strlen(calcul,sizeof(char)));
+
 	char operator[] = "*x/+-";
 
 	size_t sizeOp = strlen(operator);
