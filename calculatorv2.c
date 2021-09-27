@@ -53,43 +53,22 @@ int main ( int argc,char ** argv )
 	(void)argc;	
 	double result;
 
-	char * calcul = malloc( strlen ( argv[1] ) + 1 );
-	if ( calcul != NULL )
-	{
-	
-		strcpy( calcul , argv[1] );
-	}else
-	{
-	
-		return 1;
-	}
+	char * calcul = argv[1]; // 2+33*5
 
-	char operator[] = "(*x/+-";
+	char operator[] = "*x/+-";
+
+	size_t sizeOp = strlen(operator);
+
 	while (strlen(calcul == 1))
 	{
 		for (size_t j = 0; j < calcul; j++)
 		{			
-			for (size_t i = 0; i < operator; i++)
+			for (size_t i = 0; i < sizeOp ; i++)
 			{
 				if (strcmp(calcul[j],operator[i]) == 0)
 				{
 					switch (calcul[j])
 					{
-
-					case '!' :
-					result = factorielle( atolf(calcul[j-1]) );
-					printf("ur result :  %.2lf\n",result);
-					break;
-
-					case 'v' :
-					result = sqrt( atolf(calcul[j-1]) );
-					printf("ur result :  %.2lf\n",result);
-					break;
-
-					case '^' :
-					result = pow( atolf(calcul[j-1]) , atolf(calcul[j+1]) );
-					printf("ur result :  %.2lf\n",result);
-					break;
 
 					case '*' :
 					result = atolf(calcul[j-1]) * atolf(calcul[j+1]);
@@ -119,20 +98,6 @@ int main ( int argc,char ** argv )
 					result = division( catolf(calcul[j-1]) , atolf(calcul[j+1]) );
 					break;
 
-					case 'g' :
-					result = pgcd( atolf(calcul[j-1]) , atolf(calcul[j+1]) );
-					printf("votre resultat :  %.2lf\n",result);
-					break;
-
-					case 'e' :
-					result = exp( atolf(calcul[j-1]) );
-					printf("votre resultat :  %.2lf\n",result);
-					break;
-
-					case 'l' :
-					result = log( atolf(calcul[j-1]) );
-					printf("votre resultat :  %.2lf\n",result);
-					break;
 
 					default :
 					printf("Error! Operator is not correct\n");
