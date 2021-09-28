@@ -13,22 +13,6 @@ unsigned long long factorielle(unsigned long long a)
     return r;
 }
 
-long long pgcd(long long a, long long b)
-{
-    if (b == 0)
-        return a;
-
-    long long r = a % b;
-
-    while (r != 0)
-    {
-            a = b;
-            b = r;
-            r = a % b;
-    }
-
-    return b;
-}
 
 int division(int a , int b)
 {
@@ -55,71 +39,92 @@ int main ( int argc,char ** argv )
 
 	char * calcul = argv[1]; // 2+33*5
 
-	char * calcul2 = calloc(strlen(calcul,sizeof(char)));
+	char * calcul2 = calloc(strlen(calcul),sizeof(char));
 
-	char operator[] = "*x/+-";
+	//char operator[] = "*x/";
 
-	size_t sizeOp = strlen(operator);
+	//size_t sizeOp = strlen(operator);
+	size_t sizeCal = strlen(calcul);
 
-	while (strlen(calcul == 1))
+	if (sizeCal==3)
 	{
-		for (size_t j = 0; j < calcul; j++)
-		{			
-			for (size_t i = 0; i < sizeOp ; i++)
-			{
-				if (strcmp(calcul[j],operator[i]) == 0)
-				{
-					switch (calcul[j])
-					{
+		switch (calcul[1])
+		{
 
-					case '*' :
-					result = atolf(calcul[j-1]) * atolf(calcul[j+1]);
-					printf("ur result :  %.2lf\n",result);
-					break;
+		case '*' :
+		result = atof(&(calcul[0])) * atof(&(calcul[2]));
+		printf("ur result :  %.2lf\n",result);
+		break;
 
-					case 'x' :
-					result = atolf(calcul[j-1]) * atolf(calcul[j+1]);
-					printf("ur result :  %.2lf\n",result);
-					break;
+		case 'x' :
+		result = atof(&(calcul[0])) * atof(&(calcul[2]));
+		printf("ur result :  %.2lf\n",result);
+		break;
 
-					case '+' :
-					result = atolf(calcul[j-1]) + atolf(calcul[j+1]);
-					printf("ur result :  %.2lf\n",result);
-					break;
+		case '+' :
+		result = atof(&(calcul[0])) + atof(&(calcul[2]));
+		printf("ur result :  %.2lf\n",result);
+		break;
 
-					case '-' :	
-					result = atolf(calcul[j-1]) - atolf(calcul[j+1]);
-					printf("ur result :  %.2lf\n",result);
-					break;	
-					case '/' :	
-					result = atolf(calcul[j-1]) / atolf(calcul[j+1]);
-					printf("ur result :  %.2lf\n",result);
-					break;
+		case '-' :	
+		result = atof(&(calcul[0])) - atof(&(calcul[2]));
+		printf("ur result :  %.2lf\n",result);
+		break;	
+		case '/' :	
+		result = atof(&(calcul[0])) / atof(&(calcul[2]));
+		printf("ur result :  %.2lf\n",result);
+		break;
 
-					case '%' :
-					result = division( catolf(calcul[j-1]) , atolf(calcul[j+1]) );
-					break;
+		case '%' :
+		result = division( atof(&(calcul[0])) , atof(&(calcul[2])) );
+		break;
 
 
-					default :
-					printf("Error! Operator is not correct\n");
-					
-					}
-					
-				}else
-				{
-					printf("Error! Operator is not correct\n");
-				}
-				
-				//remplacer le calcul par result
-				
-			}
-
-		}
-
+		default :
+		printf("Error! Operator is not correct\n");
 		
+		}
 	}
 	
+	for( size_t i = 0 ; i < strlen(calcul);i++ )
+	{
+		if ( calcul[i] == 'X' || calcul[i] == '*' || calcul[i] == '/' )
+		{
+
+		switch (calcul[i])
+		{
+
+		case '*' :
+		result = atof(&(calcul[i-1])) * atof(&(calcul[i+1]));
+		break;
+
+		case 'x' :
+		result = atof(&(calcul[i-1])) * atof(&(calcul[i+1]));
+		break;
+	
+		case '/' :	
+		result = atof(&(calcul[i-1])) / atof(&(calcul[i+1]));
+		break;
+
+		default :
+		printf("Error! Operator is not correct\n");
+		
+		}
+
+		printf("ur in *x/\n");
+		}
+		else
+		{
+			if(calcul2!=NULL)
+			{
+			calcul2[i] = calcul[i];
+			puts(calcul2);
+			}
+					
+
+		}
+		
+	}
 	
 	printf("Welcome to the Calculator\n");
 
