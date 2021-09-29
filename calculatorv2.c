@@ -133,7 +133,7 @@ int main ( int argc,char ** argv )
 	printf("ur calcul %s\n",calcul);
 
 	//sscanf(calcul,"%lf %c %lf",&nb1,&op,&nb2);
-	
+	free( calcul2 );
 	free( calcul );
 	
 
