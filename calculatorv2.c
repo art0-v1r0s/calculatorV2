@@ -96,15 +96,20 @@ int main (int argc,char ** argv)
 
 		case '*' :
 		result = atof(&(calcul[i-1])) * atof(&(calcul[i+1]));
-		calcul2[i] = result;
+		//calcul2[i] = result;
+		int flag = 0;
 		int cpt = 0;
-		for(size_t j = strlen(calcul2);	j > 0; j--){
+		for(size_t j = strlen(calcul2);	j > 0 || flag == 1; j--){
 			cpt++;
-			calcul2[i] = '\0';
-			if(calcul2[i] == '+' || calcul2[i] == '-'){
-				int tmp = strlen(calcul2) - cpt;
-				snprintf(calcul2, tmp, "%lf", result);
-			}		
+			if(calcul2[j] == '+' || calcul2[j] == '-'){
+				flag = 1;
+				printf("je suis dans le if + - calcul2");
+				//calcul2[i+1] = '\0';
+				//int tmp = strlen(calcul2) - cpt;
+				//snprintf(calcul2, tmp, "%lf", result);
+				
+			}
+					
 		}
 		printf("%lf", result);
 		break;
