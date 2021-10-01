@@ -30,14 +30,14 @@ int division(int a , int b)
 	return 0 ;
 }
 
-int main ( int argc,char ** argv )
+int main (int argc,char ** argv)
 
 {
 
 	(void)argc;	
 	double result;
 
-	char * calcul = argv[1]; // 2+33*5
+	char * calcul = argv[1];
 
 	char * calcul2 = calloc(strlen(calcul),sizeof(char));
 
@@ -86,9 +86,9 @@ int main ( int argc,char ** argv )
 		}
 	}
 	
-	for( size_t i = 0 ; i < strlen(calcul);i++ )
+	for(size_t i = 0; i < strlen(calcul); i++)
 	{
-		if ( calcul[i] == 'X' || calcul[i] == '*' || calcul[i] == '/' )
+		if ( (calcul[i] == 'X' || calcul[i] == '*' || calcul[i] == '/') && calcul2 !=NULL )
 		{
 
 		switch (calcul[i])
@@ -96,6 +96,17 @@ int main ( int argc,char ** argv )
 
 		case '*' :
 		result = atof(&(calcul[i-1])) * atof(&(calcul[i+1]));
+		calcul2[i] = result;
+		int cpt = 0;
+		for(size_t j = strlen(calcul2);	j > 0; j--){
+			cpt++;
+			calcul2[i] = '\0';
+			if(calcul2[i] == '+' || calcul2[i] == '-'){
+				int tmp = strlen(calcul2) - cpt;
+				snprintf(calcul2, tmp, "%lf", result);
+			}		
+		}
+		printf("%lf", result);
 		break;
 
 		case 'x' :
