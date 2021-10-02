@@ -12,8 +12,7 @@ execute:
 	$(EXEC)$(NAME)
 
 compilation:							# Règle all, exécutée par défaut avec la commande "make"
-	$(CC) $(CFLAGS) $(SRC) -o $(NAME) $(4POW)			# On n'utilise que des variables ici. On modifie les variables, pas la ligne de commande
-
+	$(CC) $(CFLAGS) $(SRC) -o $(NAME) $(4POW)
 clean:								# Règle clean, pour supprimer les fichiers générés par le compilateur. On utilise "make clean"
 	$(RM) $(NAME)
 

@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <ctype.h>
 
 unsigned long long factorielle(unsigned long long a)
 {
@@ -22,6 +23,18 @@ int division(int a , int b){
 	}
 	printf("ur quotient is %d & the rest is %d\n",q,r);
 	return 0 ;
+}
+
+int numberBefore(int pos, char **operation){
+	do{pos --;}
+	while(isdigit(operation[pos]));
+	return pos;
+}
+
+int numberAfter(int pos, char**operation){
+	do{pos ++;}
+	while(isdigit(operation[pos]));
+	return pos;
 }
 
 int main (int argc,char ** argv){
