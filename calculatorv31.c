@@ -1,8 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include<time.h> //time
 
 #define TAILLE_PILE 100
+
+void historique(char * command,FILE * fichier){
+
+    time_t t = time(NULL); /* t contient maintenant la date et l'heure courante */
+    
+    fprintf(fichier,"%s => %s\n",ctime(&t),command);
+        
+
+}
 
 int impression(int *pile, int niveau)
 {
@@ -102,6 +112,22 @@ int main(int argc, char **argv)
     }
     else
     {
+        FILE * fichier = NULL;
+    
+        fichier = fopen("historique.txt","a");
+
+        //pour function historique
+        char calcul[TAILLE_PILE] = "";
+        for (int i=1; i < argc; i++)
+        {
+        //printf("Argument %d : %s \n", i+1, argv[i]);
+        strcat(calcul,argv[i]);
+        }
+        puts(calcul);
+
+        historique(calcul,fichier);
+        fclose(fichier);
+
         int pile[TAILLE_PILE];
         int niveau = 0;
         argc--;
