@@ -14,6 +14,46 @@ void historique(char * command,FILE * fichier){
 
 }
 
+unsigned long long factorielle(unsigned long long a)
+{
+    unsigned long long r = 1;
+
+    for (unsigned long long i = 2; i <= a; ++i)
+        r *= i;
+
+    return r;
+}
+
+long long pgcd(long long a, long long b)
+{
+    if (b == 0)
+        return a;
+
+    long long r = a % b;
+
+    while (r != 0)
+    {
+            a = b;
+            b = r;
+            r = a % b;
+    }
+
+    return b;
+}
+
+int divisionEucli(int a, int b)
+{
+	int q = 0;
+	int r = a;
+	while (r >= b)
+	{
+		q = q + 1;
+		r = r - b;
+	}
+	printf("ur quotient is %d & the rest is %d\n", q, r);
+	return 0;
+}
+
 int impression(int *pile, int niveau)
 {
     int index;
@@ -105,6 +145,53 @@ int calcule(int *pile, int niveau, const char *chaine)
 
 int main(int argc, char **argv)
 {
+    if (argc <= 4)
+    {
+        double result;
+        printf("%c",argv[2][0]);
+        
+        switch (argv[2][0])
+        {
+
+            case '!' :
+                result = factorielle(atoi(argv[1]));
+                printf("votre resultat :  %d\n",result);
+                break;
+
+            case '%' :
+                result = divisionEucli(atoi(argv[1]),atoi(argv[3]));
+                break;
+
+            case 'g' :
+                result = pgcd(atof(argv[1]),atof(argv[3]));
+                printf("votre resultat :  %.2lf\n",result);
+                break;    
+            
+            case 'v' :
+                result = sqrt(atof(argv[1]));
+                printf("ur result :  %.2lf\n",result);
+                break;
+
+            case '^' :
+                result = pow(atof(argv[1]),atof(argv[3]));
+                printf("ur result :  %.2lf\n",result);
+                break;
+
+            case 'e' :
+                result = exp(argv[1]);
+                printf("votre resultat :  %.2lf\n",result);
+                break;
+
+            case 'l' :
+                result = log(argv[1]);
+                printf("votre resultat :  %.2lf\n",result);
+                break;
+
+            default :
+                printf("Error! Operator is not correct\n");	
+        }
+            
+    }
     if (argc == 1)
     {
         aide();
@@ -112,6 +199,7 @@ int main(int argc, char **argv)
     }
     else
     {
+        
         FILE * fichier = NULL;
     
         fichier = fopen("historique.txt","a");
@@ -123,7 +211,7 @@ int main(int argc, char **argv)
         //printf("Argument %d : %s \n", i+1, argv[i]);
         strcat(calcul,argv[i]);
         }
-        puts(calcul);
+        //puts(calcul);
 
         historique(calcul,fichier);
         fclose(fichier);
