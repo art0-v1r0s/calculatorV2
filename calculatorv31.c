@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
+
 #include<time.h> //time
 
 #define TAILLE_PILE 100
@@ -155,7 +157,7 @@ int main(int argc, char **argv)
 
             case '!' :
                 result = factorielle(atoi(argv[1]));
-                printf("votre resultat :  %d\n",result);
+                printf("votre resultat :  %.2lf\n",result);
                 break;
 
             case '%' :
@@ -178,12 +180,12 @@ int main(int argc, char **argv)
                 break;
 
             case 'e' :
-                result = exp(argv[1]);
+                result = exp(atof(argv[1]));
                 printf("votre resultat :  %.2lf\n",result);
                 break;
 
             case 'l' :
-                result = log(argv[1]);
+                result = log(atof(argv[1]));
                 printf("votre resultat :  %.2lf\n",result);
                 break;
 
