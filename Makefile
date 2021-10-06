@@ -1,8 +1,8 @@
-CC = gcc									# Nom du compilateur
-CFLAGS = -std=c99 -Wall -Wextra -Werror -Wstrict-prototypes -fanalyzer		# Les flags
-RM = rm -f 									# Commande pour supprimer des fichiers
-NAME = calculatorv31									# Nom de l'exécutable
-SRC = calculatorv31.c	 								# Les fichiers source. Soir *.c, soit on liste les fichiers
+CC = gcc										# Nom du compilateur
+CFLAGS = -std=c99 -Wall -Wextra -Werror -Wstrict-prototypes -fanalyzer			# Les flags
+RM = rm -f 										# Commande pour supprimer des fichiers
+NAME = calculatorv3									# Nom de l'exécutable
+SRC = calculatorv3.c	 								# Les fichiers source. Soir *.c, soit on liste les fichiers
 EXEC = ./
 4POW = -lm
 
