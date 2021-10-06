@@ -6,7 +6,7 @@
 
 #define TAB_SIZE 100
 
-// ----- HISTORIC FUNCTION WHICH WRITE THE CALCUL AND THE DATE IN A FILE -----
+// ----- HISTORIC FUNCTION WHICH WRITE THE CALCUL AND THE DATE/TIME IN A FILE -----
 void historic(char * command,FILE * file){
     time_t date = time(NULL);
     fprintf(file, "%s => %s\n", ctime(&date), command);
@@ -22,23 +22,6 @@ unsigned long long factorial(unsigned long long a){
         tmp *= i;
 
     return tmp;
-}
-
-
-// Greater common denominator function
-long long gcd(long long a, long long b){
-    if (b == 0)
-        return a;
-
-    long long tmp = a % b;
-
-    while (tmp != 0)    {
-      a = b;
-      b = tmp;
-      tmp = a % b;
-    }
-
-    return b;
 }
 
 
@@ -58,38 +41,38 @@ int euclideanDiv(int a, int b){
 
 
 // Print function
-int print(int *opTab, int level){
+double print(double *opTab, int level){
     int index;
     for (index = 0; index < level; index++)
-        printf("%d ", opTab[index]);
+        printf("%.2lf ", opTab[index]);
     putchar('\n');
     return level;
 }
 
 
 // Addition function
-int addition(int *opTab, int level){
+double addition(double *opTab, int level){
     opTab[level - 2] = opTab[level - 2] + opTab[level - 1];
     return level - 1;
 }
 
 
 // Substraction function
-int substraction(int *opTab, int level){
+double substraction(double *opTab, int level){
     opTab[level - 2] = opTab[level - 2] - opTab[level - 1];
     return level - 1;
 }
 
 
 // Multiplication function
-int multiplication(int *opTab, int level){
+double multiplication(double *opTab, int level){
     opTab[level - 2] = opTab[level - 2] * opTab[level - 1];
     return level - 1;
 }
 
 
 // Division function
-int division(int *opTab, int level){
+double division(double *opTab, int level){
     opTab[level - 2] = opTab[level - 2] / opTab[level - 1];
     return level - 1;
 }
@@ -99,7 +82,7 @@ int division(int *opTab, int level){
 struct operation{
     const char *nom;
     const int level_min;
-    int (*fonction)(int *, int);
+    double (*fonction)(double *, int);
 };
 
 
@@ -129,7 +112,7 @@ void helper(void){
 }
 
 
-int calculate(int *opTab, int level, const char *string){
+double calculate(double *opTab, int level, const char *string){
     int number;
 
     if (sscanf(string, "%d", &number) == 1){
@@ -172,11 +155,6 @@ int main(int argc, char **argv){
                 result = euclideanDiv(atoi(argv[1]), atoi(argv[3]));
                 break;
 
-            case 'g' :
-                result = gcd(atof(argv[1]), atof(argv[3]));
-                printf("%.2lf\n", result);
-                break;
-
             case 'v' :
                 result = sqrt(atof(argv[1]));
                 printf("%.2lf\n", result);
@@ -198,7 +176,7 @@ int main(int argc, char **argv){
                 break;
 
             default :
-                printf(" : Error! Operator is not correct\n");
+                printf("Error! Operator is not correct\n");
         }
     }
     else if (argc == 1 || argc == 2){
@@ -217,15 +195,15 @@ int main(int argc, char **argv){
         historic(calcul,file);
         fclose(file);
 
-        int opTab[TAB_SIZE];
+        double opTab[TAB_SIZE];
         int level = 0;
-        argc--;
-        argv++;
+        argc --;
+        argv ++;
 
         while (argc > 0 && level != -1){
             level = calculate(opTab, level, *argv);
-            argv++;
-            argc--;
+            argv ++;
+            argc --;
         }
         if (level != -1)
             print(opTab, level);
