@@ -1,21 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <math.h>
+#include <string.h>//for strcmp
+#include <math.h>//for pow sqrt log exp
 
 #include<time.h> //time
 
-#define TAILLE_PILE 100
+#define SIZE_STACK 100
 
-void historique(char * command,FILE * fichier){
+//function historique who write the calcul and the date in a file  
+void historique(char * command,FILE * file){
 
     time_t t = time(NULL); /* t contient maintenant la date et l'heure courante */
     
-    fprintf(fichier,"%s => %s\n",ctime(&t),command);
+    fprintf(file,"%s => %s\n",ctime(&t),command);//write in the file
         
 
 }
-
+//function factorielle 
 unsigned long long factorielle(unsigned long long a)
 {
     unsigned long long r = 1;
@@ -25,7 +26,7 @@ unsigned long long factorielle(unsigned long long a)
 
     return r;
 }
-
+//function PGCD 
 long long pgcd(long long a, long long b)
 {
     if (b == 0)
@@ -42,7 +43,7 @@ long long pgcd(long long a, long long b)
 
     return b;
 }
-
+//euclidienne division who print the "quotien" and the "reste"
 int divisionEucli(int a, int b)
 {
 	int q = 0;
@@ -55,44 +56,44 @@ int divisionEucli(int a, int b)
 	printf("ur quotient is %d & the rest is %d\n", q, r);
 	return 0;
 }
-
-int impression(int *pile, int niveau)
+//function print
+int impression(int *stack, int level)
 {
     int index;
-    for (index = 0; index < niveau; index++)
-        printf("%d ", pile[index]);
+    for (index = 0; index < level; index++)
+        printf("%d ", stack[index]);
     putchar('\n');
-    return niveau;
+    return level;
+}
+//function addition 
+int addition(int *stack, int level)
+{
+    stack[level - 2] = stack[level - 2] + stack[level - 1];
+    return level - 1;
 }
 
-int addition(int *pile, int niveau)
+int soustraction(int *stack, int level)
 {
-    pile[niveau - 2] = pile[niveau - 2] + pile[niveau - 1];
-    return niveau - 1;
+    stack[level - 2] = stack[level - 2] - stack[level - 1];
+    return level - 1;
 }
 
-int soustraction(int *pile, int niveau)
+int multiplication(int *stack, int level)
 {
-    pile[niveau - 2] = pile[niveau - 2] - pile[niveau - 1];
-    return niveau - 1;
+    stack[level - 2] = stack[level - 2] * stack[level - 1];
+    return level - 1;
 }
 
-int multiplication(int *pile, int niveau)
+int division(int *stack, int level)
 {
-    pile[niveau - 2] = pile[niveau - 2] * pile[niveau - 1];
-    return niveau - 1;
-}
-
-int division(int *pile, int niveau)
-{
-    pile[niveau - 2] = pile[niveau - 2] / pile[niveau - 1];
-    return niveau - 1;
+    stack[level - 2] = stack[level - 2] / stack[level - 1];
+    return level - 1;
 }
 
 struct operation
 {
     const char *nom;
-    const int niveau_min;
+    const int level_min;
     int (*fonction)(int *, int);
 };
 
@@ -105,49 +106,49 @@ void aide(void)
     printf("Syntaxe:\n");
     for (i = 0; ops[i].nom != NULL; i++)
         printf("  %s%s%s\n",
-               ops[i].niveau_min > 1 ? "n1 " : "",
-               ops[i].niveau_min > 0 ? "n2 " : "",
+               ops[i].level_min > 1 ? "n1 " : "",
+               ops[i].level_min > 0 ? "n2 " : "",
                ops[i].nom);
 }
 
-int calcule(int *pile, int niveau, const char *chaine)
+int calcule(int *stack, int level, const char *string)
 {
-    int nombre;
-    if (sscanf(chaine, "%d", &nombre) == 1)
+    int number;
+    if (sscanf(string, "%d", &number) == 1)
     {
-        if (niveau < TAILLE_PILE)
+        if (level < SIZE_STACK)
         {
-            pile[niveau] = nombre;
-            return niveau + 1;
+            stack[level] = number;
+            return level + 1;
         }
         else
-            printf("Pas assez de place dans la pile\n");
+            printf("no space in the stack \n");
         return -1;
     }
     else
     {
         int i;
         for (i = 0; ops[i].nom != NULL; i++)
-            if (strcmp(chaine, ops[i].nom) == 0)
+            if (strcmp(string, ops[i].nom) == 0)
             {
-                if (niveau >= ops[i].niveau_min)
-                    return (*ops[i].fonction)(pile, niveau);
+                if (level >= ops[i].level_min)
+                    return (*ops[i].fonction)(stack, level);
                 else
                 {
-                    printf("%s a besoin de %d arguments\n", ops[i].nom,
-                           ops[i].niveau_min);
+                    printf("%s need %d arguments\n", ops[i].nom,
+                           ops[i].level_min);
                     return -1;
                 }
             }
-        printf("Operation inconnue: %s\n", chaine);
-        aide();
+        //printf("Operation inconnue: %s\n", string);
+        //aide();
         return -1;
     }
 }
 
 int main(int argc, char **argv)
 {
-    if (argc <= 4)
+    if (argc <= 3)
     {
         double result;
         printf("%c",argv[2][0]);
@@ -157,7 +158,7 @@ int main(int argc, char **argv)
 
             case '!' :
                 result = factorielle(atoi(argv[1]));
-                printf("votre resultat :  %.2lf\n",result);
+                printf("your result :  %.2lf\n",result);
                 break;
 
             case '%' :
@@ -166,27 +167,27 @@ int main(int argc, char **argv)
 
             case 'g' :
                 result = pgcd(atof(argv[1]),atof(argv[3]));
-                printf("votre resultat :  %.2lf\n",result);
+                printf("your result :  %.2lf\n",result);
                 break;    
             
             case 'v' :
                 result = sqrt(atof(argv[1]));
-                printf("ur result :  %.2lf\n",result);
+                printf("your result :  %.2lf\n",result);
                 break;
 
             case '^' :
                 result = pow(atof(argv[1]),atof(argv[3]));
-                printf("ur result :  %.2lf\n",result);
+                printf("your result :  %.2lf\n",result);
                 break;
 
             case 'e' :
                 result = exp(atof(argv[1]));
-                printf("votre resultat :  %.2lf\n",result);
+                printf("your result :  %.2lf\n",result);
                 break;
 
             case 'l' :
                 result = log(atof(argv[1]));
-                printf("votre resultat :  %.2lf\n",result);
+                printf("your result :  %.2lf\n",result);
                 break;
 
             default :
@@ -202,12 +203,12 @@ int main(int argc, char **argv)
     else
     {
         
-        FILE * fichier = NULL;
+        FILE * file = NULL;
     
-        fichier = fopen("historique.txt","a");
+        file = fopen("historique.txt","a");
 
         //pour function historique
-        char calcul[TAILLE_PILE] = "";
+        char calcul[SIZE_STACK] = "";
         for (int i=1; i < argc; i++)
         {
         //printf("Argument %d : %s \n", i+1, argv[i]);
@@ -215,21 +216,21 @@ int main(int argc, char **argv)
         }
         //puts(calcul);
 
-        historique(calcul,fichier);
-        fclose(fichier);
+        historique(calcul,file);
+        fclose(file);
 
-        int pile[TAILLE_PILE];
-        int niveau = 0;
+        int stack[SIZE_STACK];
+        int level = 0;
         argc--;
         argv++;
-        while (argc > 0 && niveau != -1)
+        while (argc > 0 && level != -1)
         {
-            niveau = calcule(pile, niveau, *argv);
+            level = calcule(stack, level, *argv);
             argv++;
             argc--;
         }
-        if (niveau != -1)
-            impression(pile, niveau);
+        if (level != -1)
+            impression(stack, level);
         return EXIT_SUCCESS;
     }
 }
