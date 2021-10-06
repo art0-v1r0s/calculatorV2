@@ -65,7 +65,13 @@ double substraction(double *opTab, int level){
 
 
 // Multiplication function
-double multiplication(double *opTab, int level){
+double multiplicationStar(double *opTab, int level){
+    opTab[level - 2] = opTab[level - 2] * opTab[level - 1];
+    return level - 1;
+}
+
+// Multiplication function
+double multiplicationV(double *opTab, int level){
     opTab[level - 2] = opTab[level - 2] * opTab[level - 1];
     return level - 1;
 }
@@ -73,7 +79,26 @@ double multiplication(double *opTab, int level){
 
 // Division function
 double division(double *opTab, int level){
-    opTab[level - 2] = opTab[level - 2] / opTab[level - 1];
+    if(opTab[level -1] == 0){
+      printf("Impossible to divide by zero !!!");
+      return EXIT_FAILURE;
+    }else{
+      opTab[level - 2] = opTab[level - 2] / opTab[level - 1];
+      return level - 1;
+    }
+}
+
+
+// Power function
+double power(double *opTab, int level){
+    opTab[level - 2] = pow(opTab[level - 2], opTab[level - 1]);
+    return level - 1;
+}
+
+
+// Euclidean function
+double euclidean(double *opTab, int level){
+    opTab[level - 2] = euclideanDiv((int)opTab[level - 2], (int)opTab[level - 1]);
     return level - 1;
 }
 
@@ -90,9 +115,11 @@ struct operation{
 const struct operation operations[] = {
     {"+", 2, addition},
     {"-", 2, substraction},
-    {"*", 2, multiplication},
-    {"x", 2, multiplication},
+    {"*", 2, multiplicationStar},
+    {"x", 2, multiplicationV},
     {"/", 2, division},
+    {"%", 2, euclidean},
+    {"^", 2, power},
     {"p", 1, print},
     {NULL, 0, NULL}
 };
@@ -113,9 +140,9 @@ void helper(void){
 
 
 double calculate(double *opTab, int level, const char *string){
-    int number;
+    double number;
 
-    if (sscanf(string, "%d", &number) == 1){
+    if (sscanf(string, "%lf", &number) == 1){
         if (level < TAB_SIZE){
             opTab[level] = number;
             return level + 1;
@@ -148,20 +175,11 @@ int main(int argc, char **argv){
         switch (argv[2][0]){
             case '!' :
                 result = factorial(atoi(argv[1]));
-                printf("%.2lf\n", result);
-                break;
-
-            case '%' :
-                result = euclideanDiv(atoi(argv[1]), atoi(argv[3]));
+                printf("%.0lf\n", result);
                 break;
 
             case 'v' :
                 result = sqrt(atof(argv[1]));
-                printf("%.2lf\n", result);
-                break;
-
-            case '^' :
-                result = pow(atof(argv[1]), atof(argv[3]));
                 printf("%.2lf\n", result);
                 break;
 
