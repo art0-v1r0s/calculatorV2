@@ -1,3 +1,5 @@
+// ----- LASTE EDIT THE 07-10-2021 BY ARTHUR D AND KEVIN D -----
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -9,7 +11,7 @@
 // ----- HISTORIC FUNCTION WHICH WRITE THE CALCUL AND THE DATE/TIME IN A FILE -----
 void historic(char * command,FILE * file){
     time_t date = time(NULL);
-    fprintf(file, "%s => %s\n", ctime(&date), command);
+    fprintf(file, "%s => %s\n", ctime(&date), command); // ctime convert the timestamp of the var date into a string
 }
 
 
@@ -17,8 +19,8 @@ void historic(char * command,FILE * file){
 // Factorial function
 unsigned long long factorial(unsigned long long a){
     unsigned long long tmp = 1;
-
-    for (unsigned long long i = 2; i <= a; ++i)
+    unsigned long long i = 0;
+    for (i = 2; i <= a; ++i)
         tmp *= i;
 
     return tmp;
@@ -28,24 +30,26 @@ unsigned long long factorial(unsigned long long a){
 // Euclidean division function
 int euclideanDiv(int a, int b){
 	int q = 0;
-	int tmp = a;
+	int r = a;
 
-	while (tmp >= b){
+	while (r >= b){
 		q = q + 1;
-		tmp = tmp - b;
+		r = r - b;
 	}
 
-	printf("Your quotient is %d & the rest is %d\n", q, tmp);
+	printf("Your quotient is %d & the rest is %d\n", q, r);
 	return 0;
 }
 
 
 // Print function
 double print(double *opTab, int level){
-    int index;
+    int index = 0;
+
     for (index = 0; index < level; index++)
         printf("%.2lf ", opTab[index]);
     putchar('\n');
+
     return level;
 }
 
@@ -105,9 +109,9 @@ double euclidean(double *opTab, int level){
 
 // Structure of the operations
 struct operation{
-    const char *nom;
+    const char *name;
     const int level_min;
-    double (*fonction)(double *, int);
+    double (*function)(double *, int);
 };
 
 
@@ -121,26 +125,26 @@ const struct operation operations[] = {
     {"%", 2, euclidean},
     {"^", 2, power},
     {"p", 1, print},
-    {NULL, 0, NULL}
+    {NULL, 0, NULL} // Used for ending the helper menu
 };
 
 
 // Helper menu
 void helper(void){
-    int i;
+    int i = 0;
     printf("Syntax: \n");
 
-    for (i = 0; operations[i].nom != NULL; i++)
+    for (i = 0; operations[i].name != NULL; i++)
         printf("%s%s%s \n",
                operations[i].level_min > 1 ? "n1 " : "",
                operations[i].level_min > 0 ? "n2 " : "",
-               operations[i].nom
+               operations[i].name
              );
 }
 
 
 double calculate(double *opTab, int level, const char *string){
-    double number;
+    double number = 0;
 
     if (sscanf(string, "%lf", &number) == 1){
         if (level < TAB_SIZE){
@@ -153,12 +157,12 @@ double calculate(double *opTab, int level, const char *string){
     }
     else{
         int i;
-        for (i = 0; operations[i].nom != NULL; i++)
-            if (strcmp(string, operations[i].nom) == 0){
+        for (i = 0; operations[i].name != NULL; i++)
+            if (strcmp(string, operations[i].name) == 0){
                 if (level >= operations[i].level_min)
-                    return (*operations[i].fonction)(opTab, level);
+                    return (*operations[i].function)(opTab, level);
                 else{
-                    printf("%s need %d arguments\n", operations[i].nom, operations[i].level_min);
+                    printf("%s need %d arguments\n", operations[i].name, operations[i].level_min);
                     return -1;
                 }
                 }
@@ -170,7 +174,7 @@ double calculate(double *opTab, int level, const char *string){
 // ----- SINGLE OPERATION FUNCTIONS -----
 int main(int argc, char **argv){
     if (argc == 3){
-        double result;
+        double result = 0;
 
         switch (argv[2][0]){
             case '!' :
@@ -207,7 +211,7 @@ int main(int argc, char **argv){
 
         char calcul[TAB_SIZE] = "";
         for (int i=1; i < argc; i++){
-          strcat(calcul,argv[i]);
+          strcat(calcul, argv[i]);
         }
 
         historic(calcul,file);
